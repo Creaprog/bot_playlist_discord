@@ -1,0 +1,15 @@
+{
+  "name": "creaprog",
+  "version": "1.0.0",
+  "description": "Discord music",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "matthias colin",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^9.3.0",
+    "ytdl-core": "^0.7.18"
+  }
+}
