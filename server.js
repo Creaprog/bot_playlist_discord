@@ -14,8 +14,6 @@ function music(voiceChannel, i)
         const dispatcher = connnection.playStream(stream);
         dispatcher.on("end", () => {
             voiceChannel.leave();
-            console.log("tableau : " + tab.length);
-            console.log("i : " + i);
             if (i < tab.length){
                 i++;
                 music(voiceChannel, i);
@@ -37,11 +35,10 @@ bot.on('message', message => {
     if (message.content.startsWith(prefix + "play")) {
         message.delete();
         if (!voiceChannel) {
-            return message.reply("Tu dois être co sur un salon vocal.");
+            return message.reply("You need to connect a voice channel");
         }
         if (tab[0] == null) {
-            console.log("Pas de music.");
-            return message.reply('Pas de music, il faut add');
+            return message.reply('No music, please add.');
         }
         music(voiceChannel, i);
     }
@@ -64,7 +61,6 @@ bot.on('message', message => {
         var link = message.content.split(' ');
         link.shift();
         link = link.join(' ');
-        console.log(link);
         tab[tab.length] = link;
     }
 });
