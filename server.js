@@ -3,7 +3,7 @@ const yt = require('ytdl-core');
 
 const bot = new Discord.Client();
 const token = 'YOUR TOKEN';
-const tab = [];
+var tab = [];
 var i = 0;
 const prefix = ".";
 var bool = true;
@@ -15,11 +15,10 @@ function music(voiceChannel, i, bool)
             let stream = yt(tab[i], {audioonly: true});
             const dispatcher = connnection.playStream(stream);
             dispatcher.on("end", () => {
-                voiceChannel.leave();
                 if (i < tab.length){
                     i++;
                     music(voiceChannel, i);
-                } 
+                }
                 if (i >= tab.length) {
                     i = 0;
                     music(voiceChannel, i);
@@ -58,7 +57,6 @@ bot.on('message', message => {
         } if (i >= tab.length) {
             i = 0;
         }
-        voiceChannel.leave();
         music(voiceChannel, i, true);
     }
     if (message.content.startsWith(prefix + "add")){
