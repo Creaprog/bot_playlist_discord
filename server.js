@@ -2,27 +2,31 @@ const Discord = require('discord.js');
 const yt = require('ytdl-core');
 
 const bot = new Discord.Client();
-const token = 'Your Token';
+const token = 'YOUR TOKEN';
 const tab = [];
 var i = 0;
 const prefix = ".";
+var bool = true;
 
-function music(voiceChannel, i)
+function music(voiceChannel, i, bool)
 {
-    voiceChannel.join().then(connnection => {
-        let stream = yt(tab[i], {audioonly: true});
-        const dispatcher = connnection.playStream(stream);
-        dispatcher.on("end", () => {
-            voiceChannel.leave();
-            if (i < tab.length){
-                i++;
-                music(voiceChannel, i);
-            } if (i >= tab.length) {
-                i = 0;
-                music(voiceChannel, i);
-            }
+    if (bool == true) {
+        voiceChannel.join().then(connnection => {
+            let stream = yt(tab[i], {audioonly: true});
+            const dispatcher = connnection.playStream(stream);
+            dispatcher.on("end", () => {
+                voiceChannel.leave();
+                if (i < tab.length){
+                    i++;
+                    music(voiceChannel, i);
+                } 
+                if (i >= tab.length) {
+                    i = 0;
+                    music(voiceChannel, i);
+                }
+            });
         });
-    });
+    }
 }
 
 bot.on('ready', () => {
@@ -40,11 +44,12 @@ bot.on('message', message => {
         if (tab[0] == null) {
             return message.reply('No music, please add.');
         }
-        music(voiceChannel, i);
+        music(voiceChannel, i, true);
     }
     if (message.content === prefix + "stop") {
         message.delete();
         voiceChannel.leave();
+        music(voiceChannel, i, false);
     }
     if (message.content.startsWith(prefix + "next")) {
         message.delete();
@@ -54,7 +59,7 @@ bot.on('message', message => {
             i = 0;
         }
         voiceChannel.leave();
-        music(voiceChannel, i);
+        music(voiceChannel, i, true);
     }
     if (message.content.startsWith(prefix + "add")){
         message.delete();
