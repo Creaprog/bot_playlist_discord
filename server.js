@@ -4,11 +4,11 @@ const colors = require('colors');
 const search = require('youtube-search');
 
 const bot = new Discord.Client();
-const token = 'YOUR TOKEN DISCORD';
+const token = 'TOKEN DISCORD';
 var tab = [];
 var i = 0;
 const prefix = ".";
-var bool = true;
+var bool = false;
 
 colors.setTheme({
   custom: ['red', 'underline']
@@ -16,7 +16,7 @@ colors.setTheme({
 
 var opts = {
   maxResults: 3,
-  key: 'YOUR TOKEN YOUTUBE'
+  key: 'TOKEN YOUTUBE'
 };
 
 function music(voiceChannel, i, bool)
@@ -30,7 +30,7 @@ function music(voiceChannel, i, bool)
                     i++;
                     music(voiceChannel, i);
                 }
-                else if (i >= tab.length) {
+                if (i >= tab.length) {
                     i = 0;
                     music(voiceChannel, i);
                 }
@@ -47,34 +47,29 @@ bot.on('message', message => {
     const voiceChannel = message.member.voiceChannel;
 
     if (message.content.startsWith(prefix + "play")) {
-        message.delete();
-        if (!voiceChannel) {
-            return message.reply("You need to connect a voice channel");
-        }
-        if (tab[0] == null) {
-            return message.reply('No music, please add.');
-        }
+        bool = true;
+        message.delete(message.author);
+        if (!voiceChannel) return message.reply("You need to connect a voice channel");
+        if (tab[0] == null) return message.reply('No music, please add.');
         music(voiceChannel, i, true);
     }
 
-    else if (message.content === prefix + "stop") {
-        message.delete();
+    else if (message.content.startsWith(prefix + "stop")) {
+        message.delete(message.author);
         voiceChannel.leave();
+        bool = false;
         music(voiceChannel, i, false);
     }
 
     else if (message.content.startsWith(prefix + "next")) {
-        message.delete();
-        if (i < tab.length) {
-            i++;
-        } else if (i >= tab.length) {
-            i = 0;
-        }
-        music(voiceChannel, i, true);
+        message.delete(message.author);
+        if (i < tab.length) i++;
+        if (i >= tab.length) i = 0;
+        if (bool) music(voiceChannel, i, true);
     }
 
-    else if (message.content.startsWith(prefix + "add")){
-        message.delete();
+    else if (message.content.startsWith(prefix + "add")) {
+        message.delete(message.author);
         var link = message.content.split(' ');
         link.shift();
         link = link.join(' ');
@@ -84,6 +79,12 @@ bot.on('message', message => {
             message.channel.sendMessage(results[y].link);
             tab[tab.length] = (results[y].link);
         });
+    }
+
+    else if (message.content.startsWith(prefix + "clear")) {
+        message.delete(message.author);
+        tab = [];
+        message.channel.sendMessage("The array is empty.");
     }
 });
 
