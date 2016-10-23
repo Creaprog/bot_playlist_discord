@@ -3,9 +3,9 @@
 Creating in NodeJS
 
 ##Dependance
-- Node JS
+- Node JS >= 6.9.0
 - MMFPEG
-- Python 2.7
+- Python == 2.7
 
 ## Start app
 ```
