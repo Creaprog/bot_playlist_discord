@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const yt = require('ytdl-core');
+const colors = require('colors');
 
 const bot = new Discord.Client();
 const token = 'YOUR TOKEN';
@@ -7,6 +8,10 @@ var tab = [];
 var i = 0;
 const prefix = ".";
 var bool = true;
+
+colors.setTheme({
+  custom: ['red', 'underline']
+});
 
 function music(voiceChannel, i, bool)
 {
@@ -29,7 +34,7 @@ function music(voiceChannel, i, bool)
 }
 
 bot.on('ready', () => {
-  console.log('I am ready!');
+  console.log("I am ready!".custom);
 });
 
 bot.on('message', message => {

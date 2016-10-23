@@ -9,7 +9,9 @@
   "author": "matthias colin",
   "license": "Apache License",
   "dependencies": {
+    "colors": "^1.1.2",
     "discord.js": "^9.3.0",
     "ytdl-core": "^0.7.18"
-  }
+  },
+  "engine": "node >=6.9.0"
 }
