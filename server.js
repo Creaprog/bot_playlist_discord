@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const yt = require('ytdl-core');
 const colors = require('colors');
+const search = require('youtube-search');
 
 const bot = new Discord.Client();
-const token = 'YOUR TOKEN';
+const token = 'YOUR TOKEN DISCORD';
 var tab = [];
 var i = 0;
 const prefix = ".";
@@ -12,6 +13,11 @@ var bool = true;
 colors.setTheme({
   custom: ['red', 'underline']
 });
+
+var opts = {
+  maxResults: 3,
+  key: 'YOUR TOKEN YOUTUBE'
+};
 
 function music(voiceChannel, i, bool)
 {
@@ -24,7 +30,7 @@ function music(voiceChannel, i, bool)
                     i++;
                     music(voiceChannel, i);
                 }
-                if (i >= tab.length) {
+                else if (i >= tab.length) {
                     i = 0;
                     music(voiceChannel, i);
                 }
@@ -50,26 +56,34 @@ bot.on('message', message => {
         }
         music(voiceChannel, i, true);
     }
-    if (message.content === prefix + "stop") {
+
+    else if (message.content === prefix + "stop") {
         message.delete();
         voiceChannel.leave();
         music(voiceChannel, i, false);
     }
-    if (message.content.startsWith(prefix + "next")) {
+
+    else if (message.content.startsWith(prefix + "next")) {
         message.delete();
         if (i < tab.length) {
             i++;
-        } if (i >= tab.length) {
+        } else if (i >= tab.length) {
             i = 0;
         }
         music(voiceChannel, i, true);
     }
-    if (message.content.startsWith(prefix + "add")){
+
+    else if (message.content.startsWith(prefix + "add")){
         message.delete();
         var link = message.content.split(' ');
         link.shift();
         link = link.join(' ');
-        tab[tab.length] = link;
+        search(link, opts, function(err, results) {
+            if(err) return console.log(err);
+            for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+            message.channel.sendMessage(results[y].link);
+            tab[tab.length] = (results[y].link);
+        });
     }
 });
 
