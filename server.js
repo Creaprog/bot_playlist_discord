@@ -8,7 +8,6 @@ const token = 'YOUR TOKEN DISCORD';
 var tab = [];
 var i = 0;
 const prefix = ".";
-var bool = false;
 
 colors.setTheme({
   custom: ['red', 'underline']
@@ -19,24 +18,18 @@ var opts = {
   key: 'YOUR TOKEN YOUTUBE'
 };
 
-function music(voiceChannel, i, bool)
+function music(voiceChannel, i)
 {
-    if (bool == true) {
         voiceChannel.join().then(connection => {
             let stream = yt(tab[i], {audioonly: true});
-            const dispatcher = connection.playStream(stream);
+            const streamoptions = { seek: 0,volume: 0.05 };
+            const dispatcher = connection.playStream(stream, streamoptions);
             dispatcher.on("end", () => {
-                if (i < tab.length){
-                    i++;
-                    music(voiceChannel, i);
-                }
-                if (i >= tab.length) {
-                    i = 0;
-                    music(voiceChannel, i);
-                }
+                if (i < tab.length) i++;
+                if (i >= tab.length) i = 0;
+                return music(voiceChannel, i);
             });
         });
-    }
 }
 
 bot.on('ready', () => {
@@ -47,27 +40,26 @@ bot.on('message', message => {
     const voiceChannel = message.member.voiceChannel;
 
     if (message.content.startsWith(prefix + "play")) {
-        bool = true;
         message.delete(message.author);
         if (!voiceChannel) return message.reply("You need to connect a voice channel");
         if (tab[0] == null) return message.reply('No music, please add.');
-        music(voiceChannel, i, true);
+        else music(voiceChannel, i);
     }
 
     else if (message.content.startsWith(prefix + "stop")) {
         message.delete(message.author);
         voiceChannel.leave();
-        bool = false;
-        music(voiceChannel, i, false);
+        music(voiceChannel, i);
     }
-
+/*
     else if (message.content.startsWith(prefix + "next")) {
         message.delete(message.author);
         if (i < tab.length) i++;
         if (i >= tab.length) i = 0;
-        if (bool) music(voiceChannel, i, true);
+        voiceChannel.leave();
+        music(voiceChannel, i);
     }
-
+*/
     else if (message.content.startsWith(prefix + "add")) {
         message.delete(message.author);
         var link = message.content.split(' ');
