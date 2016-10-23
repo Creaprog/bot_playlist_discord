@@ -4,7 +4,7 @@ const colors = require('colors');
 const search = require('youtube-search');
 
 const bot = new Discord.Client();
-const token = 'TOKEN DISCORD';
+const token = 'MjM4Mzg5MjQ4NzE2MzA4NDky.Culi-Q.qoX0kXDHHD9bn9CVMIfSp1icd40';
 var tab = [];
 var i = 0;
 const prefix = ".";
@@ -16,15 +16,15 @@ colors.setTheme({
 
 var opts = {
   maxResults: 3,
-  key: 'TOKEN YOUTUBE'
+  key: 'AIzaSyCeFyuWebGJ5BLLQlPzB5nuoJNp9qdVhpc'
 };
 
 function music(voiceChannel, i, bool)
 {
     if (bool == true) {
-        voiceChannel.join().then(connnection => {
+        voiceChannel.join().then(connection => {
             let stream = yt(tab[i], {audioonly: true});
-            const dispatcher = connnection.playStream(stream);
+            const dispatcher = connection.playStream(stream);
             dispatcher.on("end", () => {
                 if (i < tab.length){
                     i++;
