@@ -65,6 +65,7 @@ Music.prototype.voice = function() {
 }
 
 Music.prototype.stop = function () {
+    this.clearTab();
     this.dispatcher.end();
     this.voiceChannel.leave();
 }
