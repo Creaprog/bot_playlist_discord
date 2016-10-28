@@ -54,7 +54,7 @@ Music.prototype.clearTab = function() {
 Music.prototype.voice = function() {
     this.voiceChannel.join().then(connection => {
         let stream = yt(this.getTab(this.getI()), {audioonly: true});
-        const streamoptions = { seek: 0,volume: 0.05 };
+        const streamoptions = { seek: 0,volume: 1 };
         this.dispatcher = connection.playStream(stream, streamoptions);
         this.dispatcher.on("end", () => {
             if (this.getI() < this.getLengthTab()) this.setI(this.i + 1);

@@ -5,7 +5,7 @@ const search = require('youtube-search');
 const Music = require("./Music.js");
 
 const bot = new Discord.Client();
-const token = '';
+const token = 'MjM4Mzg5MjQ4NzE2MzA4NDky.CvT0KA.Zx9W0eGl7omSe3mF6B6432WPSfI';
 const prefix = ".";
 
 colors.setTheme({
@@ -16,7 +16,7 @@ var music = new Music();
 
 var opts = {
   maxResults: 3,
-  key: ''
+  key: 'AIzaSyAhfL9uPpEDFdSwi2IK-ZGlHfRLEmk-mqY'
 };
 
 bot.on('ready', () => {
@@ -82,6 +82,10 @@ bot.on('message', message => {
         music.setTabEnd(link);
     }
 
+    else if (message.content.startsWith(prefix + "volume")) {
+        message.reply("Soon !");
+    }
+    
     else if (message.content.startsWith(prefix + "clear")) {
         message.delete(message.author);
         music.clearTab();
