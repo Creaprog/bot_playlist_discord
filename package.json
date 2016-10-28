@@ -6,6 +6,13 @@
   "scripts": {
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Creaprog/bot_playlist_discord.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Creaprog/bot_playlist_discord/issues"
+  },
   "author": "Matthias Colin",
   "license": "Apache License",
   "dependencies": {
@@ -16,5 +23,7 @@
     "youtube-search": "^1.0.6",
     "ytdl-core": "^0.7.18"
   },
-  "engine": "node >=6.9.0"
+  "engines": {
+    "node": ">=6.0.0"
+  }
 }
