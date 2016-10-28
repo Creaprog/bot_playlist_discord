@@ -35,6 +35,16 @@ bot.on('message', message => {
         }
     }
 
+    else if (message.content.startsWith(prefix + "pause")) {
+        message.delete(message.author);
+        music.pause();
+    }
+
+    else if (message.content.startsWith(prefix + "resume")) {
+        message.delete(message.author);
+        music.resume();
+    }
+
     else if (message.content.startsWith(prefix + "stop")) {
         message.delete(message.author);
         music.stop();

@@ -56,16 +56,25 @@ Music.prototype.voice = function() {
         let stream = yt(this.getTab(this.getI()), {audioonly: true});
         const streamoptions = { seek: 0,volume: 0.05 };
         this.dispatcher = connection.playStream(stream, streamoptions);
-            this.dispatcher.on("end", () => {
-                if (this.getI() < this.getLengthTab()) this.setI(this.i + 1);
-                if (this.getI() >= this.getLengthTab()) this.setI(0);
-                return this.voice(this.getVoiceChannel(), this.getI());
-            });
+        this.dispatcher.on("end", () => {
+            if (this.getI() < this.getLengthTab()) this.setI(this.i + 1);
+            if (this.getI() >= this.getLengthTab()) this.setI(0);
+            return this.voice(this.getVoiceChannel(), this.getI());
         });
+    });
 }
 
 Music.prototype.stop = function () {
     this.dispatcher.end();
     this.voiceChannel.leave();
 }
+
+Music.prototype.pause = function () {
+    this.dispatcher.pause();
+}
+
+Music.prototype.resume = function () {
+    this.dispatcher.resume();
+}
+
 module.exports = Music;
