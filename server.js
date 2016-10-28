@@ -48,6 +48,7 @@ bot.on('message', message => {
     else if (message.content.startsWith(prefix + "stop")) {
         message.delete(message.author);
         music.stop();
+        message.channel.sendMessage("The array is empty.");
     }
 
 /*
@@ -84,12 +85,6 @@ bot.on('message', message => {
 
     else if (message.content.startsWith(prefix + "volume")) {
         message.reply("Soon !");
-    }
-    
-    else if (message.content.startsWith(prefix + "clear")) {
-        message.delete(message.author);
-        music.clearTab();
-        message.channel.sendMessage("The array is empty.");
     }
 });
 
