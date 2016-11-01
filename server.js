@@ -5,18 +5,17 @@ const search = require('youtube-search');
 const Music = require("./Music.js");
 
 const bot = new Discord.Client();
-const token = '';
-const prefix = ".";
+const music = new Music();
+
+const token = 'MjM4Mzg5MjQ4NzE2MzA4NDky.CvVc5w.JKweHqFeJqcS9IOD-t9vlWBQwBA';
 
 colors.setTheme({
   custom: ['red', 'underline']
 });
 
-var music = new Music();
-
 var opts = {
   maxResults: 3,
-  key: ''
+  key: 'AIzaSyBCB2kGp1sScTqZDJF8Ic7MuT8xSfrF9EE'
 };
 
 bot.on('ready', () => {
@@ -41,12 +40,12 @@ bot.on('message', message => {
             message.delete(message.author);
             music.resume();
             break;
-        case (".stop"):
+        case (".stop") :
             message.delete(message.author);
             music.stop();
             message.channel.sendMessage("The array is empty.");
             break;
-        case (".add"):
+        case (".add") :
             message.delete(message.author);
             var link = message.content.split(' ');
             link.shift();
@@ -58,7 +57,7 @@ bot.on('message', message => {
                 music.setTabEnd(results[y].link);
             });
             break;
-        case (".link"):
+        case (".link") :
             message.delete(message.author);
             var link = message.content.split(' ');
             link.shift();
@@ -66,8 +65,12 @@ bot.on('message', message => {
             console.log(link);
             music.setTabEnd(link);
             break;
-        case (".volume"):
-            message.reply("Soon !");
+        case (".volume") :
+            message.delete(message.author);
+            var link = message.content.split(' ');
+            link.shift();
+            link = link.join(' ');
+            music.volume(link/100);
             break;
     }
 
@@ -80,6 +83,7 @@ bot.on('message', message => {
         music(voiceChannel, i);
     }
 */
+
 });
 
 bot.login(token);
