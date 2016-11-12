@@ -13,7 +13,7 @@ colors.setTheme({
   custom: ['red', 'underline']
 });
 
-var opts = {
+const opts = {
   maxResults: 3,
   key: 'AIzaSyBCB2kGp1sScTqZDJF8Ic7MuT8xSfrF9EE'
 };
@@ -24,7 +24,7 @@ bot.on('ready', () => {
 
 bot.on('message', message => {
     music.setVoiceChannel(message.member.voiceChannel);
-    var array_msg = message.content.split(' ');
+    let array_msg = message.content.split(' ');
     switch (array_msg[0]) {
         case (".play") :
             message.delete(message.author);
@@ -47,19 +47,19 @@ bot.on('message', message => {
             break;
         case (".add") :
             message.delete(message.author);
-            var link = message.content.split(' ');
+            let link = message.content.split(' ');
             link.shift();
             link = link.join(' ');
             search(link, opts, function(err, results) {
                 if(err) return console.log(err);
-                for (var y = 0; results[y].kind == 'youtube#channel'; y++);
+                for (let y = 0; results[y].kind == 'youtube#channel'; y++);
                 message.channel.sendMessage(results[y].link);
                 music.setTabEnd(results[y].link);
             });
             break;
         case (".link") :
             message.delete(message.author);
-            var link = message.content.split(' ');
+            let link = message.content.split(' ');
             link.shift();
             link = link.join(' ');
             console.log(link);
@@ -67,7 +67,7 @@ bot.on('message', message => {
             break;
         case (".volume") :
             message.delete(message.author);
-            var link = message.content.split(' ');
+            let link = message.content.split(' ');
             link.shift();
             link = link.join(' ');
             music.volume(link/100);
