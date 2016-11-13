@@ -52,6 +52,7 @@ Music.prototype.voice = function() {
         this.dispatcher.on("end", () => {
             if (this.getI() < this.getLengthTab()) this.setI(this.i + 1);
             if (this.getI() >= this.getLengthTab()) this.setI(0);
+            this.verif_play = true;
             return this.voice(this.getVoiceChannel(), this.getI());
         });
     });

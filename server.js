@@ -24,7 +24,7 @@ bot.on('ready', () => {
 
 bot.on('message', message => {
     music.setVoiceChannel(message.member.voiceChannel);
-    let array_msg = message.content.split(' ');
+    var array_msg = message.content.split(' ');
     switch (array_msg[0]) {
         case (".play") :
             message.delete(message.author);
@@ -47,7 +47,7 @@ bot.on('message', message => {
             break;
         case (".add") :
             message.delete(message.author);
-            let link = message.content.split(' ');
+            var link = message.content.split(' ');
             link.shift();
             link = link.join(' ');
             search(link, opts, function(err, results) {
@@ -59,7 +59,7 @@ bot.on('message', message => {
             break;
         case (".link") :
             message.delete(message.author);
-            let link = message.content.split(' ');
+            var link = message.content.split(' ');
             link.shift();
             link = link.join(' ');
             console.log(link);
@@ -67,7 +67,7 @@ bot.on('message', message => {
             break;
         case (".volume") :
             message.delete(message.author);
-            let link = message.content.split(' ');
+            var link = message.content.split(' ');
             link.shift();
             link = link.join(' ');
             music.volume(link/100);
