@@ -8,7 +8,7 @@ var app = express();
 const bot = new Discord.Client();
 const music = new Music();
 
-const token = 'Token Discord';
+const token = 'MjM4Mzg5MjQ4NzE2MzA4NDky.Cz1lRQ.tnfHStEeogBVs-vAa-lRW8f-TgM';
 
 colors.setTheme({
   custom: ['red', 'underline']
@@ -16,7 +16,7 @@ colors.setTheme({
 
 const opts = {
   maxResults: 3,
-  key: 'Token Google'
+  key: 'AIzaSyA8vHppEeepWVw4KArcuoSMLBWsUUm768c'
 };
 
 bot.on('ready', () => {
